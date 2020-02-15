@@ -18,13 +18,14 @@ Invalid Example:
 ...X
 XXXX
 ...X
-This is an invalid board that you will not receive - as battleships will always have a cell separating between them.
+This is an invalid board that you will not receive - 
+as battleships will always have a cell separating between them.
 ```
 **Follow up:**
 
 Could you do it in one-pass, using only O(1) extra memory and without modifying the value of the board?
 
-# Implementation : DFS
+# Implementation 1 : DFS
 
 ```java
 class Solution {
@@ -52,6 +53,28 @@ class Solution {
         sinkBattleship(board, i, j+1);
         sinkBattleship(board, i-1, j);
         sinkBattleship(board, i+1, j);
+    }
+}
+```
+# Implementation 2 
+```java
+class Solution {
+    public int countBattleships(char[][] board) {
+        int battleships = 0;
+        if(board == null || board.length == 0)
+            return battleships;
+        for(int i = 0; i < board.length; i++){
+            for (int j = 0; j < board[i].length; j++){
+                if(board[i][j] == '.')
+                    continue;
+                if(j > 0 && board[i][j-1] == 'X')
+                    continue;
+                if(i > 0 && board[i-1][j] == 'X')
+                    continue;
+                battleships++;
+            }
+        }
+        return battleships;
     }
 }
 ```
